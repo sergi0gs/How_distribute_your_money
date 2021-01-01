@@ -39,21 +39,89 @@ class I_E():
 
     def add_label(self, parameter, text, type_word, size_word, x, y):
         if parameter == 'incomes':
-            self.add_labels = Label(self.frame_in, text = text)
-            self.add_labels.config(font = (type_word, size_word))
-            self.add_labels.place(x = x, y = y)
- 
+            self.add_labels_in = Label(self.frame_in, text = text)
+            self.add_labels_in.config(font = (type_word, size_word))
+            self.add_labels_in.place(x = x, y = y)
+        elif parameter == 'expenses':
+            self.add_labels_ex = Label(self.frame_ex, text = text)
+            self.add_labels_ex.config(font = (type_word, size_word))
+            self.add_labels_ex.place(x = x, y = y)
+    
+    def add_entry(self, parameter, type_variable, width, type_word, size_word, relief, x, y):
+        if parameter == 'date_in':
+            self.add_date_in = Entry(self.frame_in, textvariable = type_variable, width = width)
+            self.add_date_in.config(font = (type_word,size_word), relief = relief)
+            self.add_date_in.place(x = x, y = y)
+        elif parameter == 'amount_in':
+            self.add_amount_in = Entry(self.frame_in, textvariable = type_variable, width = width)
+            self.add_amount_in.config(font = (type_word,size_word), relief = relief)
+            self.add_amount_in.place(x = x, y = y)
+        if parameter == 'date_ex':
+            self.add_date_ex = Entry(self.frame_ex, textvariable = type_variable, width = width)
+            self.add_date_ex.config(font = (type_word,size_word), relief = relief)
+            self.add_date_ex.place(x = x, y = y)
+        elif parameter == 'amount_ex':
+            self.add_amount_ex = Entry(self.frame_ex, textvariable = type_variable, width = width)
+            self.add_amount_ex.config(font = (type_word,size_word), relief = relief)
+            self.add_amount_ex.place(x = x, y = y)
+
+    def add_texts(self, parameter, width, height, x, y):
+        if parameter == 'incomes':
+            self.add_text_in = Text(self.frame_in, width = width, height = height, relief = 'solid')
+            self.add_text_in.place(x = x, y = y)
+        elif parameter == 'expenses':
+            self.add_text_ex = Text(self.frame_ex, width = width, height = height, relief = 'solid')
+            self.add_text_ex.place(x = x, y = y)
+
+    def add_actual_date(self, parameter):
+        if parameter == 'incomes':
+            self.automatic_date = time.strftime('%d/%m/%y')
+            self.add_date_in.insert(0,self.automatic_date)
+        elif parameter == 'expenses':
+            self.automatic_date = time.strftime('%d/%m/%y')
+            self.add_date_ex.insert(0,self.automatic_date)
+
+    def add_button(self, parameter, width, height, text, type_word, size_word, relief, x, y):
+        if parameter == 'incomes':
+            self.add_buttons_in = Button(self.frame_in, width = width, height = height)
+            self.add_buttons_in.config(font = (type_word, size_word), text = text, command = self.add_in, relief = relief)
+            self.add_buttons_in.place(x = x, y = y)
+        elif parameter == 'expenses':
+            self.add_buttons_ex = Button(self.frame_ex, width = width, height = height)
+            self.add_buttons_ex.config(font = (type_word, size_word), text = text, command = self.add_ex, relief = relief)
+            self.add_buttons_ex.place(x = x, y = y)
+
+    def add_in(self):
+        pass
+
+    def add_ex(self):
+        pass
 
 def main():
     i_e = I_E(tk.Tk(), '1250x600', 'Incomes and Expenses')
     #INCOMES
-    i_e.frame_s('incomes', 5, 10, 'green', 30, 35 )
-    i_e.label_frames('incomes', 2, 200, 540, 'Arial', 12, 'INCOMES', 'ridge', 'red', 10, 10)
-    i_e.add_label('incomes', 'Monto', 'Arial', 12, 15, 35)
-    
+    i_e.frame_s('incomes', 5, 10, 'honeydew', 30, 40 )
+    i_e.label_frames('incomes', 2, 200, 410, 'Arial', 12, 'INCOMES', 'ridge', 'honeydew', 10, 10)
+    i_e.add_label('incomes', 'Date: ', 'Arial', 12, 15, 35)
+    i_e.add_entry('date_in', tk.StringVar(), 9, 'Arial', 12, 'solid', 15, 60)
+    i_e.add_actual_date('incomes')
+    i_e.add_label('incomes', 'Amount: ', 'Arial', 12, 15, 90)
+    i_e.add_entry('amount_in', tk.StringVar(), 15, 'Arial', 12, 'solid', 15, 115)
+    i_e.add_label('incomes', 'Description:  ', 'Arial', 12, 15, 145)
+    i_e.add_texts('incomes', 23, 10, 15, 170)
+    i_e.add_button('incomes', 10, 2, 'Add', 'Arial', 12, 'groove', 50, 350)
+
     #EXPENSES
-    i_e.frame_s('expenses', 295, 10, 'green', 30, 35 )
-    i_e.label_frames('expenses', 2, 200, 540, 'Arial', 12, 'EXPENSES', 'ridge', 'blue', 10, 10)
+    i_e.frame_s('expenses', 300, 10, 'honeydew', 30, 40 )
+    i_e.label_frames('expenses', 2, 200, 410, 'Arial', 12, 'EXPENSES', 'ridge', 'honeydew', 10, 10)
+    i_e.add_label('expenses', 'Date: ', 'Arial', 12, 15, 35)
+    i_e.add_entry('date_ex', tk.StringVar(), 9, 'Arial', 12, 'solid', 15, 60)
+    i_e.add_actual_date('expenses')
+    i_e.add_label('expenses', 'Amount: ', 'Arial', 12, 15, 90)
+    i_e.add_entry('amount_ex', tk.StringVar(), 15, 'Arial', 12, 'solid', 15, 115)
+    i_e.add_label('expenses', 'Description:  ', 'Arial', 12, 15, 145)
+    i_e.add_texts('expenses', 23, 10, 15, 170)
+    i_e.add_button('expenses', 10, 2, 'Add', 'Arial', 12, 'groove', 50, 350)
 
     i_e.main_loop()
 
