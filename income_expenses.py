@@ -107,8 +107,8 @@ class I_E():
         self.combobox_ex.config(state = 'readonly')
 
 
-def main():
-    i_e = I_E(tk.Tk(), '1250x600', 'Incomes and Expenses')
+def main_ie():
+    i_e = I_E(tk.Tk(), '470x550', 'Incomes and Expenses')
     #INCOMES
     i_e.frame_s('incomes', 5, 10, 'honeydew', 30, 40 )
     i_e.label_frames('incomes', 2, 200, 410, 'Arial', 12, 'INCOMES', 'ridge', 'honeydew', 10, 10)
@@ -135,13 +135,7 @@ def main():
     i_e.add_texts('expenses', 23, 10, 15, 225)
     i_e.add_button('expenses', 10, 2, 'Add', 'Arial', 12, 'groove', 60, 400)
 
-########
-    i_e.frame_s('amounts', 475, 10, 'red', 30, 40)
-    #NEEDS
-   # i_e.label_frames('expenses', 2, 200, 480, 'Arial', 12, 'EXPENSES', 'ridge', 'honeydew', 10, 10)
-    #WANTS
-    #SAVINGS
     i_e.main_loop()
 
 if __name__ == '__main__':
-    main()
+    main_ie()
