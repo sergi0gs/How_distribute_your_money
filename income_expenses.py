@@ -19,8 +19,11 @@ class I_E():
             self.frame_in = Label(self.root, width = width, height = height)
             self.frame_in.config(bg = bg)
             self.frame_in.place(x = x, y = y)
-
         elif parameter == 'expenses':
+            self.frame_ex = Label(self.root, width = width, height = height)
+            self.frame_ex.config(bg = bg)
+            self.frame_ex.place(x = x, y = y)
+        elif parameter == 'amounts':
             self.frame_ex = Label(self.root, width = width, height = height)
             self.frame_ex.config(bg = bg)
             self.frame_ex.place(x = x, y = y)
@@ -96,6 +99,13 @@ class I_E():
 
     def add_ex(self):
         pass
+    
+    def add_combobox(self, width, type_word, size_word, x, y, value1, value2, value3):
+        self.combobox_ex = ttk.Combobox(self.frame_ex, width = width, font = (type_word, size_word))
+        self.combobox_ex.place(x = x, y = y)
+        self.combobox_ex['values'] = (value1, value2, value3)
+        self.combobox_ex.config(state = 'readonly')
+
 
 def main():
     i_e = I_E(tk.Tk(), '1250x600', 'Incomes and Expenses')
@@ -109,20 +119,28 @@ def main():
     i_e.add_entry('amount_in', tk.StringVar(), 15, 'Arial', 12, 'solid', 15, 115)
     i_e.add_label('incomes', 'Description:  ', 'Arial', 12, 15, 145)
     i_e.add_texts('incomes', 23, 10, 15, 170)
-    i_e.add_button('incomes', 10, 2, 'Add', 'Arial', 12, 'groove', 50, 350)
+    i_e.add_button('incomes', 10, 2, 'Add', 'Arial', 12, 'groove', 60, 350)
 
     #EXPENSES
-    i_e.frame_s('expenses', 300, 10, 'honeydew', 30, 40 )
-    i_e.label_frames('expenses', 2, 200, 410, 'Arial', 12, 'EXPENSES', 'ridge', 'honeydew', 10, 10)
+    i_e.frame_s('expenses', 240, 10, 'honeydew', 30, 40)
+    i_e.label_frames('expenses', 2, 200, 480, 'Arial', 12, 'EXPENSES', 'ridge', 'honeydew', 10, 10)
     i_e.add_label('expenses', 'Date: ', 'Arial', 12, 15, 35)
     i_e.add_entry('date_ex', tk.StringVar(), 9, 'Arial', 12, 'solid', 15, 60)
     i_e.add_actual_date('expenses')
     i_e.add_label('expenses', 'Amount: ', 'Arial', 12, 15, 90)
     i_e.add_entry('amount_ex', tk.StringVar(), 15, 'Arial', 12, 'solid', 15, 115)
-    i_e.add_label('expenses', 'Description:  ', 'Arial', 12, 15, 145)
-    i_e.add_texts('expenses', 23, 10, 15, 170)
-    i_e.add_button('expenses', 10, 2, 'Add', 'Arial', 12, 'groove', 50, 350)
+    i_e.add_label('expenses', 'Category:', 'Arial', 12, 15, 145)
+    i_e.add_combobox(13, 'Arial', 12, 15, 170, 'Needs', 'Wants', 'Savings')
+    i_e.add_label('expenses', 'Description:  ', 'Arial', 12, 15, 200)
+    i_e.add_texts('expenses', 23, 10, 15, 225)
+    i_e.add_button('expenses', 10, 2, 'Add', 'Arial', 12, 'groove', 60, 400)
 
+########
+    i_e.frame_s('amounts', 475, 10, 'red', 30, 40)
+    #NEEDS
+   # i_e.label_frames('expenses', 2, 200, 480, 'Arial', 12, 'EXPENSES', 'ridge', 'honeydew', 10, 10)
+    #WANTS
+    #SAVINGS
     i_e.main_loop()
 
 if __name__ == '__main__':
