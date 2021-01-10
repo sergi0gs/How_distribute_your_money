@@ -106,9 +106,29 @@ class I_E():
         self.combobox_ex['values'] = (value1, value2, value3)
         self.combobox_ex.config(state = 'readonly')
 
+    def add_menu(self, width, height):
+        self.menu_bar = Menu(self.root)
+        self.tabs = Menu(self.menu_bar, tearoff = 0)
+        
+        self.tabs.add_command(label = 'Data', command = self.data)
+        self.tabs.add_separator()
+        self.tabs.add_command(label = 'Exit', command = self.exit)
+        self.menu_bar.add_cascade(label = 'File', menu = self.tabs)
+
+        self.root.config(menu = self.menu_bar)
+
+    def exit(self):
+        self.root.destroy()
+
+    def data(self):
+        self.root.destroy()
+        from amounts import main_amount
+        main_amount()
+
 
 def main_ie():
     i_e = I_E(tk.Tk(), '470x550', 'Incomes and Expenses')
+    i_e.add_menu(300, 300)
     #INCOMES
     i_e.frame_s('incomes', 5, 10, 'honeydew', 30, 40 )
     i_e.label_frames('incomes', 2, 200, 410, 'Arial', 12, 'INCOMES', 'ridge', 'honeydew', 10, 10)
