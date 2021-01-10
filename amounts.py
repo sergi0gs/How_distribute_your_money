@@ -155,8 +155,8 @@ class Amount():
 def main_amount():
     amount = Amount(tk.Tk(), '1200x400', 'Amounts')
     amount.add_frames('amounts', 170, 400, 'honeydew', 10, 10)
-    amount.add_frames('tables', 950, 280, 'honeydew', 150, 10)
-    amount.add_frames('search', 950, 100, 'honeydew', 150, 290)
+    amount.add_frames('tables', 950, 320, 'honeydew', 150, 10)
+    amount.add_frames('search', 950, 100, 'honeydew', 150, 300)
 
     amount.add_menu(300, 300)
 
@@ -176,11 +176,13 @@ def main_amount():
     amount.add_labels('tables','Expenses\'s history', 'Arial', 12, 590, 10)
     amount.add_tables('expenses', 430, 30)
 
+    amount.add_labels('tables', 'Description', 'Arial', 12, 190, 265)
     amount.add_labels('search', 'N°:', 'Arial', 12, 10, 10)
     amount.add_entrys('incomes', tk.StringVar, 5, 'Arial', 11, 40, 12) 
     amount.add_button('incomes', 8, 2, 'Search', 'Arial', 12, 'groove', 10, 40)
     amount.add_text_box('incomes', 30, 4,'Arial', 12, 100, 10)
 
+    amount.add_labels('tables', 'Description', 'Arial', 12, 700, 265)
     amount.add_labels('search', 'N°:', 'Arial', 12, 500, 10)
     amount.add_entrys('expenses', tk.StringVar, 5, 'Arial', 11, 530, 12) 
     amount.add_button('expenses', 8, 2, 'Search', 'Arial', 12, 'groove', 500, 40)
