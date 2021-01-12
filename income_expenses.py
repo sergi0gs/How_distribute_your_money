@@ -93,6 +93,10 @@ class I_E():
             self.add_buttons_ex = Button(self.frame_ex, width = width, height = height)
             self.add_buttons_ex.config(font = (type_word, size_word), text = text, command = self.add_ex, relief = relief)
             self.add_buttons_ex.place(x = x, y = y)
+        elif parameter == 'db':
+            self.add_buttons_db = Button(self.frame_in, width = width, height = height)
+            self.add_buttons_db.config(font = (type_word, size_word), text = text, command = self.data_base, relief = relief)
+            self.add_buttons_db.place(x = x, y = y)
 
     def add_in(self):
         pass
@@ -100,6 +104,33 @@ class I_E():
     def add_ex(self):
         pass
     
+    def data_base(self):
+        try:
+            self.conection = sqlite3.connect('data_base.db')
+            self.cursor = self.conection.cursor()
+            self.cursor.execute('''
+                CREATE TABLE INCOMES(
+                    N INTEGER PRIMARY KEY AUTOINCREMENT,
+                    DATE VARCHAR(200),
+                    AMOUNT REAL,
+                    DESCRIPTION VARCHAR(200)
+                )
+                '''    
+            ),
+            self.cursor.execute('''
+                CREATE TABLE EXPENSES(
+                    N INTEGER PRIMARY KEY AUTOINCREMENT,
+                    DATA VARCHAR(200),
+                    CATEGORY VARCHAR(20),
+                    AMOUNT REAL,
+                    DESCRIPTION VARCHAR(200)
+                )
+                '''
+            )
+        except:
+            messagebox.showinfo('Notification', 'There is already a database created')
+
+
     def add_combobox(self, width, type_word, size_word, x, y, value1, value2, value3):
         self.combobox_ex = ttk.Combobox(self.frame_ex, width = width, font = (type_word, size_word))
         self.combobox_ex.place(x = x, y = y)
@@ -126,6 +157,7 @@ class I_E():
         main_amount()
 
 
+
 def main_ie():
     i_e = I_E(tk.Tk(), '470x550', 'Incomes and Expenses')
     i_e.add_menu(300, 300)
@@ -140,6 +172,7 @@ def main_ie():
     i_e.add_label('incomes', 'Description:  ', 'Arial', 12, 15, 145)
     i_e.add_texts('incomes', 23, 10, 15, 170)
     i_e.add_button('incomes', 10, 2, 'Add', 'Arial', 12, 'groove', 60, 350)
+    i_e.add_button('db', 10, 2, 'Create \nData Base', 'Arial', 12, 'groove', 60, 450)
 
     #EXPENSES
     i_e.frame_s('expenses', 240, 10, 'honeydew', 30, 40)
