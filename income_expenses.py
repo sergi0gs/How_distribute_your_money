@@ -99,10 +99,33 @@ class I_E():
             self.add_buttons_db.place(x = x, y = y)
 
     def add_in(self):
-        pass
+        self.incomes_conection = sqlite3.connect('data_base.db')
+        self.incomes_cursor = self.incomes_conection.cursor()
+        self.income_data = [
+            (
+                self.add_date_in.get(),
+                self.add_amount_in.get(),
+                self.add_text_in.get('1.0','end-1c')
+            )
+        ]
+        self.incomes_cursor.executemany('INSERT INTO INCOMES VALUES(NULL, ?,?,?)', self.income_data)
+        self.incomes_conection.commit()
+        messagebox.showinfo('Notification','You have saved the information correctly')
 
     def add_ex(self):
-        pass
+        self.expenses_conection = sqlite3.connect('data_base.db')
+        self.expenses_cursor = self.expenses_conection.cursor()
+        self.expenses_data = [
+            (
+                self.add_date_ex.get(),
+                self.add_amount_ex.get(),
+                self.combobox_ex.get(),
+                self.add_text_ex.get('1.0','end-1c')
+            )
+        ]
+        self.expenses_cursor.executemany('INSERT INTO EXPENSES VALUES(NULL, ?,?,?,?)', self.expenses_data)
+        self.expenses_conection.commit()
+        messagebox.showinfo('Notification','You have saved the information correctly')
     
     def data_base(self):
         try:
@@ -121,8 +144,8 @@ class I_E():
                 CREATE TABLE EXPENSES(
                     N INTEGER PRIMARY KEY AUTOINCREMENT,
                     DATA VARCHAR(200),
-                    CATEGORY VARCHAR(20),
                     AMOUNT REAL,
+                    CATEGORY VARCHAR(20),
                     DESCRIPTION VARCHAR(200)
                 )
                 '''
