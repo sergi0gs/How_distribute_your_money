@@ -78,11 +78,11 @@ class I_E():
 
     def add_actual_date(self, parameter):
         if parameter == 'incomes':
-            self.automatic_date = time.strftime('%d/%m/%y')
-            self.add_date_in.insert(0,self.automatic_date)
+            self.automatic_date_in = time.strftime('%d/%m/%y')
+            self.add_date_in.insert(0,self.automatic_date_in)
         elif parameter == 'expenses':
-            self.automatic_date = time.strftime('%d/%m/%y')
-            self.add_date_ex.insert(0,self.automatic_date)
+            self.automatic_date_ex = time.strftime('%d/%m/%y')
+            self.add_date_ex.insert(0,self.automatic_date_ex)
 
     def add_button(self, parameter, width, height, text, type_word, size_word, relief, x, y):
         if parameter == 'incomes':
@@ -99,34 +99,45 @@ class I_E():
             self.add_buttons_db.place(x = x, y = y)
 
     def add_in(self):
-        self.incomes_conection = sqlite3.connect('data_base.db')
-        self.incomes_cursor = self.incomes_conection.cursor()
-        self.income_data = [
-            (
-                self.add_date_in.get(),
-                self.add_amount_in.get(),
-                self.add_text_in.get('1.0','end-1c')
-            )
-        ]
-        self.incomes_cursor.executemany('INSERT INTO INCOMES VALUES(NULL, ?,?,?)', self.income_data)
-        self.incomes_conection.commit()
-        messagebox.showinfo('Notification','You have saved the information correctly')
+        for element in self.add_amount_in.get():
+            if element == ',':
+                messagebox.showinfo('Notification', 'Do not use comma please')
+                break
+            else:
+                self.incomes_conection = sqlite3.connect('data_base.db')
+                self.incomes_cursor = self.incomes_conection.cursor()
+                self.income_data = [
+                    (
+                        self.add_date_in.get(),
+                        self.add_amount_in.get(),
+                        self.add_text_in.get('1.0','end-1c')
+                    )
+                ]
+                self.incomes_cursor.executemany('INSERT INTO INCOMES VALUES(NULL, ?,?,?)', self.income_data)
+                self.incomes_conection.commit()
+                print(type(self.add_amount_in.get()))
+                messagebox.showinfo('Notification','You have saved the information correctly')
 
     def add_ex(self):
-        self.expenses_conection = sqlite3.connect('data_base.db')
-        self.expenses_cursor = self.expenses_conection.cursor()
-        self.expenses_data = [
-            (
-                self.add_date_ex.get(),
-                self.add_amount_ex.get(),
-                self.combobox_ex.get(),
-                self.add_text_ex.get('1.0','end-1c')
-            )
-        ]
-        self.expenses_cursor.executemany('INSERT INTO EXPENSES VALUES(NULL, ?,?,?,?)', self.expenses_data)
-        self.expenses_conection.commit()
-        messagebox.showinfo('Notification','You have saved the information correctly')
-    
+        for element in self.add_amount_ex.get():
+            if element == ',':
+                messagebox.showinfo('Notification', 'Do not use comma please')
+                break
+       
+            self.expenses_conection = sqlite3.connect('data_base.db')
+            self.expenses_cursor = self.expenses_conection.cursor()
+            self.expenses_data = [
+                (
+                    self.add_date_ex.get(),
+                    self.add_amount_ex.get(),
+                    self.combobox_ex.get(),
+                    self.add_text_ex.get('1.0','end-1c')
+                )
+            ]
+            self.expenses_cursor.executemany('INSERT INTO EXPENSES VALUES(NULL, ?,?,?,?)', self.expenses_data)
+            self.expenses_conection.commit()
+            messagebox.showinfo('Notification','You have saved the information correctly')
+        
     def data_base(self):
         try:
             self.conection = sqlite3.connect('data_base.db')

@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import tkinter as tk 
+import sqlite3
 
 class Amount():
     def __init__(self, root, dimensions, title):
@@ -78,7 +79,38 @@ class Amount():
             self.add_buttons_ex.place(x = x, y = y)
 
     def show_data(self):
-        messagebox.showinfo('','hola')
+        # INCOMES TABLE
+        self.data_conection_in = sqlite3.connect('data_base.db')
+        self.data_cursor_in = self.data_conection_in.cursor()
+        self.table_income_data_in = self.add_table_in.get_children()
+        for element in self.table_income_data_in:
+            self.add_table_in.delete(element)
+        self.data_cursor_in.execute(f'SELECT * FROM INCOMES')
+        self.rows_incomes = self.data_cursor_in.fetchall()
+        for rows in self.rows_incomes:
+            self.add_table_in.insert('', 0, text = rows, values = rows)
+        
+        # EXPENSES TABLE
+        self.data_conection_ex = sqlite3.connect('data_base.db')
+        self.data_cursor_ex = self.data_conection_ex.cursor()
+        self.table_expense_data = self.add_table_ex.get_children()
+        for element in self.table_expense_data:
+            self.add_table_ex.delete(element)
+        self.data_cursor_ex.execute(f'SELECT * FROM EXPENSES')
+        self.rows_expense = self.data_cursor_ex.fetchall()
+        for rows in self.rows_expense:
+            self.add_table_ex.insert('', 0, text = rows, values = rows)
+
+        # AMOUNT INFORMATION
+        self.only_amount_in = []
+        a = 0
+        for i in self.rows_incomes:
+            self.only_amount_in.append(i[2])
+            #a = a + self.only_amount_in(i[2])
+        #print(type(self.only_amount_in[8]))
+        print(self.only_amount_in[1] + self.only_amount_in[6])
+        
+        # NEEDS
 
     def show_incomes(self):
         messagebox.showinfo('','in')
