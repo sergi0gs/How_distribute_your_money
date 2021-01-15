@@ -64,20 +64,6 @@ class Amount():
             self.add_entry_ex.config(font = (type_word, size_word), relief = 'solid')
             self.add_entry_ex.place(x = x, y = y)
 
-    def add_button(self, parameter,  width, height, text, type_word, size_word, relief, x, y):
-        if parameter == 'amount':
-            self.add_buttons_amount = Button(self.add_frame_amounts, width = width, height = height)
-            self.add_buttons_amount.config(font = (type_word, size_word), text = text, command = self.show_data, relief = relief)
-            self.add_buttons_amount.place(x = x, y = y)
-        if parameter == 'incomes':
-            self.add_buttons_in = Button(self.add_frame_search, width = width, height = height)
-            self.add_buttons_in.config(font = (type_word, size_word), text = text, command = self.show_incomes, relief = relief)
-            self.add_buttons_in.place(x = x, y = y)
-        if parameter == 'expenses':
-            self.add_buttons_ex = Button(self.add_frame_search, width = width, height = height)
-            self.add_buttons_ex.config(font = (type_word, size_word), text = text, command = self.show_expenses, relief = relief)
-            self.add_buttons_ex.place(x = x, y = y)
-
     def show_data(self):
         # INCOMES TABLE
         self.data_conection_in = sqlite3.connect('data_base.db')
@@ -248,7 +234,7 @@ def main_amount():
     amount.add_label_frames('Savings', 2, 100, 70, 'Arial', 11, 'ridge', 'honeydew', 5, 185) 
     amount.add_entrys('savings', tk.StringVar, 9, 'Arial', 11, 18, 215) 
 
-    amount.add_button('amount', 8, 2, 'Show', 'Arial', 12, 'groove', 15, 270)
+    amount.show_data()
 
     amount.add_labels('tables', 'Income\'s history', 'Arial', 15, 120, 0)
     amount.add_tables('incomes', 10, 30)
