@@ -63,6 +63,43 @@ class Amount():
             self.add_entry_ex = Entry(self.add_frame_search, textvariable = type_enter, width = width)
             self.add_entry_ex.config(font = (type_word, size_word), relief = 'solid')
             self.add_entry_ex.place(x = x, y = y)
+    
+    def add_tables(self, parameter, x, y):
+        if parameter == 'incomes':
+            self.add_table_in = ttk.Treeview(self.add_frame_tables, selectmode = 'browse')
+            self.add_table_in.place (x = x, y = y)
+            self.add_table_in['columns'] = ('1','2','3','4')
+            self.add_table_in['show'] = 'headings'
+            self.add_table_in.column ('1', width = 40, anchor = 'c')
+            self.add_table_in.column ('2', width = 80, anchor = 'c')
+            self.add_table_in.column ('3', width = 120, anchor = 'c')
+            self.add_table_in.column ('4', width = 120, anchor = 'c')
+
+            self.add_table_in.heading ('1', text = 'N°')
+            self.add_table_in.heading ('2', text = 'Date')
+            self.add_table_in.heading ('3', text = 'Amount')
+            self.add_table_in.heading ('4', text = 'Description')
+            self.scroll_bar_in = ttk.Scrollbar (self.add_frame_tables, orient = 'vertical', command = self.add_table_in.yview)
+            self.scroll_bar_in.place (x = x+370, y= y+90)
+
+        elif parameter == 'expenses':
+            self.add_table_ex = ttk.Treeview(self.add_frame_tables, selectmode = 'browse')
+            self.add_table_ex.place (x = x, y = y)
+            self.add_table_ex['columns'] = ('1','2','3','4','5')
+            self.add_table_ex['show'] = 'headings'
+            self.add_table_ex.column ('1', width = 40, anchor = 'c')
+            self.add_table_ex.column ('2', width = 120, anchor = 'c')
+            self.add_table_ex.column ('3', width = 80, anchor = 'c')
+            self.add_table_ex.column ('4', width = 120, anchor = 'c')
+            self.add_table_ex.column ('5', width = 120, anchor = 'c')
+
+            self.add_table_ex.heading ('1', text = 'N°')
+            self.add_table_ex.heading ('2', text = 'Date')
+            self.add_table_ex.heading ('3', text = 'Amount')
+            self.add_table_ex.heading ('4', text = 'Category')
+            self.add_table_ex.heading ('5', text = 'Description')
+            self.scroll_bar_ex = ttk.Scrollbar (self.add_frame_tables, orient = 'vertical', command = self.add_table_ex.yview)
+            self.scroll_bar_ex.place (x = x+490, y= y+90)
 
     def show_data(self):
         # INCOMES TABLE
@@ -152,42 +189,6 @@ class Amount():
         savings_value = b*0.2 - savings_expense_amount
         self.add_entry_savings.insert(0,savings_value)
 
-    def add_tables(self, parameter, x, y):
-        if parameter == 'incomes':
-            self.add_table_in = ttk.Treeview(self.add_frame_tables, selectmode = 'browse')
-            self.add_table_in.place (x = x, y = y)
-            self.add_table_in['columns'] = ('1','2','3','4')
-            self.add_table_in['show'] = 'headings'
-            self.add_table_in.column ('1', width = 40, anchor = 'c')
-            self.add_table_in.column ('2', width = 80, anchor = 'c')
-            self.add_table_in.column ('3', width = 120, anchor = 'c')
-            self.add_table_in.column ('4', width = 120, anchor = 'c')
-
-            self.add_table_in.heading ('1', text = 'N°')
-            self.add_table_in.heading ('2', text = 'Date')
-            self.add_table_in.heading ('3', text = 'Amount')
-            self.add_table_in.heading ('4', text = 'Description')
-            self.scroll_bar_in = ttk.Scrollbar (self.add_frame_tables, orient = 'vertical', command = self.add_table_in.yview)
-            self.scroll_bar_in.place (x = x+370, y= y+90)
-
-        elif parameter == 'expenses':
-            self.add_table_ex = ttk.Treeview(self.add_frame_tables, selectmode = 'browse')
-            self.add_table_ex.place (x = x, y = y)
-            self.add_table_ex['columns'] = ('1','2','3','4','5')
-            self.add_table_ex['show'] = 'headings'
-            self.add_table_ex.column ('1', width = 40, anchor = 'c')
-            self.add_table_ex.column ('2', width = 120, anchor = 'c')
-            self.add_table_ex.column ('3', width = 80, anchor = 'c')
-            self.add_table_ex.column ('4', width = 120, anchor = 'c')
-            self.add_table_ex.column ('5', width = 120, anchor = 'c')
-
-            self.add_table_ex.heading ('1', text = 'N°')
-            self.add_table_ex.heading ('2', text = 'Date')
-            self.add_table_ex.heading ('3', text = 'Amount')
-            self.add_table_ex.heading ('4', text = 'Category')
-            self.add_table_ex.heading ('5', text = 'Description')
-            self.scroll_bar_ex = ttk.Scrollbar (self.add_frame_tables, orient = 'vertical', command = self.add_table_ex.yview)
-            self.scroll_bar_ex.place (x = x+490, y= y+90)
 
     def add_text_box(self, parameter, width, height, type_word, size_word, x, y):
         if parameter == 'incomes':
@@ -219,9 +220,9 @@ class Amount():
         main_ie()
 
 def main_amount():
-    amount = Amount(tk.Tk(), '1200x350', 'Amounts')
+    amount = Amount(tk.Tk(), '1100x300', 'Amounts')
     amount.add_frames('amounts', 170, 400, 'honeydew', 10, 10)
-    amount.add_frames('tables', 950, 320, 'honeydew', 150, 30)
+    amount.add_frames('tables', 950, 320, 'honeydew', 150, 10)
 
     amount.add_menu(300, 300)
 
@@ -234,12 +235,12 @@ def main_amount():
     amount.add_label_frames('Savings', 2, 100, 70, 'Arial', 11, 'ridge', 'honeydew', 5, 185) 
     amount.add_entrys('savings', tk.StringVar, 9, 'Arial', 11, 18, 215) 
 
-    amount.show_data()
-
     amount.add_labels('tables', 'Income\'s history', 'Arial', 15, 120, 0)
     amount.add_tables('incomes', 10, 30)
     amount.add_labels('tables','Expenses\'s history', 'Arial', 15, 590, 0)
     amount.add_tables('expenses', 430, 30)
+
+    amount.show_data()
 
     amount.main_loop()
 

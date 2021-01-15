@@ -123,6 +123,12 @@ class I_E():
             self.incomes_cursor.executemany('INSERT INTO INCOMES VALUES(NULL, ?,?,?)', self.income_data)
             self.incomes_conection.commit()
             messagebox.showinfo('Notification','You have saved the information correctly')
+        # Clean
+        self.add_amount_in.delete(0,tk.END)
+        self.add_text_in.delete('1.0','end')
+        self.add_amount_in.focus()
+
+
 
     def add_ex(self):
         value_ex = True
