@@ -1,9 +1,3 @@
-import subprocess
-startupinfo = subprocess.STARTUPINFO()
-startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-
-subprocess.check_call(cmd, startupinfo=startupinfo)
-
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
