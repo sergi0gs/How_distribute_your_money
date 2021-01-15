@@ -109,7 +109,7 @@ class I_E():
 
         if value_in == False:
             messagebox.showinfo('Notification', 'Do not use comma please')
-        
+                
         else:
             self.incomes_conection = sqlite3.connect('data_base.db')
             self.incomes_cursor = self.incomes_conection.cursor()

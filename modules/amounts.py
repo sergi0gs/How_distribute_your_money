@@ -101,22 +101,70 @@ class Amount():
         for rows in self.rows_expense:
             self.add_table_ex.insert('', 0, text = rows, values = rows)
 
-        # AMOUNT INFORMATION
+        # AMOUNT  INCOMES INFORMATION
         self.only_amount_in = []
         a = 0
+        iteration = 0
         for i in self.rows_incomes:
             self.only_amount_in.append(i[2])
-            #a = a + self.only_amount_in(i[2])
-        #print(type(self.only_amount_in[8]))
-        print(self.only_amount_in[1] + self.only_amount_in[6])
-        
+            b = a + self.only_amount_in[iteration]
+            a = b
+            iteration = iteration + 1
+
+        # AMOUNT EXPENSES INFORMATION
+        #   NEED EXPENSES
+        self.need_expenses = []
+        need_expense_amount = 0
+        iteration_need = 0
+        self.data_conection_need = sqlite3.connect('data_base.db')
+        self.data_cursor_need = self.data_conection_need.cursor()
+        self.data_cursor_need.execute(f'SELECT * FROM EXPENSES WHERE CATEGORY = "Needs"')
+        self.rows_need_expense = self.data_cursor_need.fetchall()
+        for rows_need in self.rows_need_expense:
+            self.need_expenses.append(rows_need[2])
+            new_need_expense_amount = need_expense_amount + self.need_expenses[iteration_need]
+            need_expense_amount = new_need_expense_amount
+            iteration_need = iteration_need + 1
+
+        #   WANTS EXPENSES
+        self.wants_expenses = []
+        wants_expense_amount = 0
+        iteration_wants = 0
+        self.data_conection_wants = sqlite3.connect('data_base.db')
+        self.data_cursor_wants = self.data_conection_wants.cursor()
+        self.data_cursor_wants.execute(f'SELECT * FROM EXPENSES WHERE CATEGORY = "Wants"')
+        self.rows_wants_expense = self.data_cursor_wants.fetchall()
+        for rows_wants in self.rows_wants_expense:
+            self.wants_expenses.append(rows_wants[2])
+            new_wants_expense_amount = wants_expense_amount + self.wants_expenses[iteration_wants]
+            wants_expense_amount = new_wants_expense_amount
+            iteration_wants = iteration_wants + 1
+
+        #   SAVINGS EXPENSES
+        self.savings_expenses = []
+        savings_expense_amount = 0
+        iteration_savings = 0
+        self.data_conection_savings = sqlite3.connect('data_base.db')
+        self.data_cursor_savings = self.data_conection_savings.cursor()
+        self.data_cursor_savings.execute(f'SELECT * FROM EXPENSES WHERE CATEGORY = "Savings"')
+        self.rows_savings_expense = self.data_cursor_savings.fetchall()
+        for rows_savings in self.rows_savings_expense:
+            self.savings_expenses.append(rows_savings[2])
+            new_savings_expense_amount = savings_expense_amount + self.savings_expenses[iteration_savings]
+            savings_expense_amount = new_savings_expense_amount
+            iteration_savings = iteration_savings + 1
+
         # NEEDS
+        needs_value = b*0.5 - need_expense_amount
+        self.add_entry_need.insert(0,needs_value)
 
-    def show_incomes(self):
-        messagebox.showinfo('','in')
+        # WANTS
+        wants_value = b*0.3 - wants_expense_amount
+        self.add_entry_wants.insert(0,wants_value)
 
-    def show_expenses(self):
-        messagebox.showinfo('', 'ex')
+        # SAVINGS
+        savings_value = b*0.2 - savings_expense_amount
+        self.add_entry_savings.insert(0,savings_value)
 
     def add_tables(self, parameter, x, y):
         if parameter == 'incomes':
@@ -185,10 +233,9 @@ class Amount():
         main_ie()
 
 def main_amount():
-    amount = Amount(tk.Tk(), '1200x400', 'Amounts')
+    amount = Amount(tk.Tk(), '1200x350', 'Amounts')
     amount.add_frames('amounts', 170, 400, 'honeydew', 10, 10)
-    amount.add_frames('tables', 950, 320, 'honeydew', 150, 10)
-    amount.add_frames('search', 950, 100, 'honeydew', 150, 300)
+    amount.add_frames('tables', 950, 320, 'honeydew', 150, 30)
 
     amount.add_menu(300, 300)
 
@@ -201,25 +248,12 @@ def main_amount():
     amount.add_label_frames('Savings', 2, 100, 70, 'Arial', 11, 'ridge', 'honeydew', 5, 185) 
     amount.add_entrys('savings', tk.StringVar, 9, 'Arial', 11, 18, 215) 
 
-    amount.add_button('amount', 8, 2, 'Show', 'Arial', 12, 'groove', 15, 285)
+    amount.add_button('amount', 8, 2, 'Show', 'Arial', 12, 'groove', 15, 270)
 
-    amount.add_labels('tables', 'Income\'s history', 'Arial', 12, 120, 10)
+    amount.add_labels('tables', 'Income\'s history', 'Arial', 15, 120, 0)
     amount.add_tables('incomes', 10, 30)
-    amount.add_labels('tables','Expenses\'s history', 'Arial', 12, 590, 10)
+    amount.add_labels('tables','Expenses\'s history', 'Arial', 15, 590, 0)
     amount.add_tables('expenses', 430, 30)
-
-    amount.add_labels('tables', 'Description', 'Arial', 12, 190, 265)
-    amount.add_labels('search', 'N°:', 'Arial', 12, 10, 10)
-    amount.add_entrys('incomes', tk.StringVar, 5, 'Arial', 11, 40, 12) 
-    amount.add_button('incomes', 8, 2, 'Search', 'Arial', 12, 'groove', 10, 40)
-    amount.add_text_box('incomes', 30, 4,'Arial', 12, 100, 10)
-
-    amount.add_labels('tables', 'Description', 'Arial', 12, 700, 265)
-    amount.add_labels('search', 'N°:', 'Arial', 12, 500, 10)
-    amount.add_entrys('expenses', tk.StringVar, 5, 'Arial', 11, 530, 12) 
-    amount.add_button('expenses', 8, 2, 'Search', 'Arial', 12, 'groove', 500, 40)
-    amount.add_text_box('expenses', 30, 4, 'Arial', 12, 600, 10)
-
 
     amount.main_loop()
 
