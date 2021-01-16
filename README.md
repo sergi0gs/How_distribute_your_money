@@ -1,7 +1,7 @@
 # How distribute your money
 This project is inspiring in the rule 50/30/20. You can use this programm to distribute your money in 50% on needs, 30% on wants and 20% on savings for your personal finances. Good Luck!
 
-## Step 1:
+# Step 1:
 Download and Extract the .rar file or copy this repository in your computer.
 Link: https://drive.google.com/file/d/1OToaB4Ukzx6vXTZeW6l3uEcGkkHmw6_W/view?usp=sharing
 
@@ -28,4 +28,6 @@ Go to the upper left side and select File > Data
 
 ![step 5](https://user-images.githubusercontent.com/71573671/104792251-c39e9800-576b-11eb-9a66-ff78c8e50c01.PNG)
 
-You will see your money, the distribution of it and how many you can spend.
+You will see your money, the distribution of it and how many of it you can spend.
+
+Best wishes!!
