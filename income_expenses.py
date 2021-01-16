@@ -225,11 +225,14 @@ class I_E():
         self.root.destroy()
 
     def data(self):
-        self.root.destroy()
-        from amounts import main_amount
-        main_amount()
-
-
+        try:
+            self.root.destroy()
+            from amounts import main_amount
+            main_amount()
+            
+        except:
+            messagebox.showinfo('Notification','Create yor Data Base')
+            main_ie()
 
 def main_ie():
     i_e = I_E(tk.Tk(), '470x550', 'Incomes and Expenses')
