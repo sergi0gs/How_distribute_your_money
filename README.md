@@ -5,6 +5,8 @@ This project is inspiring in the rule 50/30/20. You can use this programm to dis
 Download and Extract the .rar file or copy this repository in your computer.
 Link: https://drive.google.com/file/d/1OToaB4Ukzx6vXTZeW6l3uEcGkkHmw6_W/view?usp=sharing
 
+![step 1](https://user-images.githubusercontent.com/71573671/104792689-3ceaba80-576d-11eb-8773-ebf8c8ea496a.PNG)
+
 # Step 2:
 Run income_expenses.exe or income_expenses.py
 
