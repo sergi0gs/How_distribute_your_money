@@ -1,5 +1,5 @@
 # How distribute your money
-This project is inspiring in the rule 50/30/20. You can use this programm to distribute your money in 50% on needs, 30% on wants and 20% on savings for your personal finances. Good Luck!
+This project is inspiring in the rule 50/30/20 from the book “All Your Worth: The Ultimate Lifetime Money Plan” (Elisabeth Warren, 2005). You can use this programm to distribute your money in 50% on needs, 30% on wants and 20% on savings for your personal finances. Good Luck!
 
 # Step 1:
 Download and Extract the .rar file or copy this repository in your computer.
